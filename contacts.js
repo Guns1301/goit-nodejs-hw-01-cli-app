@@ -1,7 +1,8 @@
 // Imports of system modules
 const fs = require("fs/promises");
 const path = require("path");
-
+// Imports of external libs
+const { v4: uuidv4 } = require("uuid");
 // Path to contacts file
 const contactsPath = path.join(__dirname, "db", "contacts.json");
 
@@ -13,6 +14,7 @@ async function readFile(path) {
 async function writeFile(path, data) {
   await fs.writeFile(path, JSON.stringify(data, null, 2));
 }
+
 async function listContacts() {
   try {
     const content = await readFile(contactsPath);
