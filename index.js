@@ -1,7 +1,17 @@
-const { Command } = require("commander");
-const program = new Command();
+const commander = require("commander");
+const contactsMethods = require("./contacts.js");
+
+const program = new commander.Command();
+
 program
-  .option("-a, --action <type>", "choose action")
+  .addOption(
+    new commander.Option("-a, --action <type>", "choose action").choices([
+      "list",
+      "get",
+      "remove",
+      "add",
+    ])
+  )
   .option("-i, --id <type>", "user id")
   .option("-n, --name <type>", "user name")
   .option("-e, --email <type>", "user email")
@@ -11,7 +21,6 @@ program.parse(process.argv);
 
 const argv = program.opts();
 
-// TODO: рефакторить
 function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
